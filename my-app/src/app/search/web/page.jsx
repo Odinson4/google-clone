@@ -1,13 +1,13 @@
 export const dynamic = "force-dynamic";
 
-import ImageSearchResults from "@/components/ImageSearchResults";
+import WebSearchResults from "@/components/WebSearchResults";
 import Link from "next/link";
 
-export default async function ImageSearchPage({ searchParams }) {
+export default async function WebSearchPage({ searchParams }) {
   const startIndex = searchParams.start || "1";
   await new Promise((resolve) => setTimeout(resolve, 2000));
   const response = await fetch(
-    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${searchParams.searchTerm}}&searchType=image&start=${startIndex}`
+    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${searchParams.searchTerm}}&start=${startIndex}`
   );
 
   if (!response.ok) {
@@ -32,5 +32,5 @@ export default async function ImageSearchPage({ searchParams }) {
       </div>
     );
   }
-  return <>{results && <ImageSearchResults results={data} />}</>;
+  return <>{results && <WebSearchResults results={data} />}</>;
 }
